@@ -1,0 +1,75 @@
+# Gradle
+.gradle/
+build/
+*/build/
+local.properties
+
+# IDE
+.idea/
+*.iml
+*.iws
+*.ipr
+*.sublime-workspace
+*.sublime-project
+.vscode/
+*.swp
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Build outputs
+*.apk
+*.aab
+*.ap_
+*.dex
+*.class
+
+# Test reports
+*/build/reports/
+*/build/outputs/apk/
+*/build/outputs/bundle/
+
+# Signing
+*.keystore
+*.jks
+signing.properties
+
+# Logs
+*.log
+
+# Cache
+*.cache
+
+# Kotlin
+*.kt.bak
+
+# Android
+*.ap_
+*.dex
+*.class
+bin/
+gen/
+out/
+production/
+
+# Navigation
+.navigation/
+
+# Room
+*.db
+*.db-journal
+
+# Hilt
+*/build/generated/hilt/
+
+# Compose
+*/build/generated/compose/
+
+# DataStore
+*.preferences_pb
+
+# Temporary files
+*.tmp
+*.temp

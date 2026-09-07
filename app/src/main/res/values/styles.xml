@@ -1,0 +1,5 @@
+<resources>
+    <style name="Theme.NotifyFX" parent="androidx.compose.material3.MaterialTheme">
+        <!-- No additional styling needed, Compose handles theming -->
+    </style>
+</resources>
