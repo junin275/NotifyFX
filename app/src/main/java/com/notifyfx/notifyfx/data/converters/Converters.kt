@@ -34,14 +34,6 @@ class PendingIntentConverter {
     }
 }
 
-class ColorConverter {
-    @TypeConverter
-    fun fromColor(color: Int): Int = color
-
-    @TypeConverter
-    fun toColor(color: Int): Int = color
-}
-
 class ShadowConfigConverter {
     @TypeConverter
     fun fromShadowConfig(config: com.notifyfx.notifyfx.model.ShadowConfig): String {

@@ -5,7 +5,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
 import com.notifyfx.notifyfx.data.converters.BitmapConverter
-import com.notifyfx.notifyfx.data.converters.ColorConverter
+
 import com.notifyfx.notifyfx.data.converters.ShadowConfigConverter
 
 /**
@@ -14,7 +14,6 @@ import com.notifyfx.notifyfx.data.converters.ShadowConfigConverter
  */
 @Entity(tableName = "notification_styles")
 @TypeConverters(
-    ColorConverter::class,
     ShadowConfigConverter::class,
     BitmapConverter::class
 )
@@ -34,14 +33,14 @@ data class NotificationStyle(
     val itemSpacing: Float = 8f,       // dp
 
     // Background
-    @TypeConverters(ColorConverter::class) val backgroundColor: Int = 0xFFFFFFFF,
+    val backgroundColor: Int = 0xFFFFFFFF,
     val backgroundBlur: Float = 0f,    // 0-100
     val transparency: Float = 0f,      // 0-100
     val useMaterialSurface: Boolean = true,
 
     // Border
     val borderWidth: Float = 0f,
-    @TypeConverters(ColorConverter::class) val borderColor: Int = 0xFF000000,
+    val borderColor: Int = 0xFF000000,
 
     // Shadow
     @TypeConverters(ShadowConfigConverter::class) val shadow: ShadowConfig = ShadowConfig(),
@@ -54,26 +53,26 @@ data class NotificationStyle(
     // Typography - Title
     val titleFontFamily: String = "sans-serif-medium",
     val titleFontSize: Float = 16f,    // sp
-    @TypeConverters(ColorConverter::class) val titleColor: Int = 0xFF1C1B1F,
+    val titleColor: Int = 0xFF1C1B1F,
     val titleMaxLines: Int = 1,
 
     // Typography - Text
     val textFontFamily: String = "sans-serif",
     val textFontSize: Float = 14f,     // sp
-    @TypeConverters(ColorConverter::class) val textColor: Int = 0xFF49454F,
+    val textColor: Int = 0xFF49454F,
     val textMaxLines: Int = 3,
 
     // Typography - SubText
     val subTextFontSize: Float = 12f,  // sp
-    @TypeConverters(ColorConverter::class) val subTextColor: Int = 0xFF79747E,
+    val subTextColor: Int = 0xFF79747E,
 
     // Actions
     val actionButtonHeight: Float = 36f,    // dp
     val actionButtonCornerRadius: Float = 18f, // dp
     val actionButtonPadding: Float = 16f,   // dp
     val actionSpacing: Float = 8f,          // dp
-    @TypeConverters(ColorConverter::class) val actionBackgroundColor: Int = 0xFFE8DEF8,
-    @TypeConverters(ColorConverter::class) val actionTextColor: Int = 0xFF381E72,
+    val actionBackgroundColor: Int = 0xFFE8DEF8,
+    val actionTextColor: Int = 0xFF381E72,
     val actionFontSize: Float = 14f,        // sp
     val actionFontFamily: String = "sans-serif-medium",
 
@@ -97,7 +96,7 @@ data class NotificationStyle(
     val showTimestamp: Boolean = false,
     val showProgressBar: Boolean = true,
     val progressBarHeight: Float = 4f,
-    @TypeConverters(ColorConverter::class) val progressBarColor: Int = 0xFF6750A4
+    val progressBarColor: Int = 0xFF6750A4
 ) {
     companion object {
         // Preset styles
@@ -279,7 +278,7 @@ data class NotificationStyle(
 data class ShadowConfig(
     val elevation: Float = 4f,
     val blur: Float = 8f,
-    @TypeConverters(ColorConverter::class) val color: Int = 0x33000000,
+    val color: Int = 0x33000000,
     val offsetX: Float = 0f,
     val offsetY: Float = 4f
 )
