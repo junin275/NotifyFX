@@ -169,12 +169,20 @@ fun AppStyleRow(
             }
 
             // Style selector dropdown
-            androidx.compose.material3.Menu(
-                expanded = showDropdown,
-                onDismissRequest = { showDropdown = false }
-            ) {
+            Box {
+                androidx.compose.material3.OutlinedButton(
+                    onClick = { showDropdown = !showDropdown }
+                ) {
+                    Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                        Text("Style", fontSize = 14.sp)
+                        androidx.compose.material.Icon(
+                            imageVector = androidx.compose.material.icons.default.ExpandMore,
+                            contentDescription = null
+                        )
+                    }
+                }
                 androidx.compose.material3.DropdownMenu(
-                    modifier = Modifier.fillMaxWidth(),
+                    expanded = showDropdown,
                     onDismissRequest = { showDropdown = false }
                 ) {
                     allStyles.forEach { style ->
@@ -183,9 +191,9 @@ fun AppStyleRow(
                                 onStyleChange(style.id)
                                 showDropdown = false
                             },
-                            content = {
+                            text = {
                                 Row(
-                                    modifier = Modifier.fillMaxWidth().padding(16.dp),
+                                    modifier = Modifier.fillMaxWidth().padding(end = 16.dp),
                                     horizontalArrangement = Arrangement.SpaceBetween
                                 ) {
                                     Text(text = style.name, fontSize = 14.sp)
@@ -198,18 +206,6 @@ fun AppStyleRow(
                                     }
                                 }
                             }
-                        )
-                    }
-                }
-            } trigger = {
-                androidx.compose.material3.OutlinedButton(
-                    onClick = { showDropdown = !showDropdown }
-                ) {
-                    Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                        Text("Style", fontSize = 14.sp)
-                        androidx.compose.material.Icon(
-                            imageVector = androidx.compose.material.icons.default.ExpandMore,
-                            contentDescription = null
                         )
                     }
                 }

@@ -58,7 +58,7 @@ class NotifyFXNotificationListenerService : NotificationListenerService() {
         // Collect settings
         serviceScope.launch {
             runSuspendCatchingLogged(TAG, "Settings collector failed") {
-                settings.settingsFlow.subscribe { prefs ->
+                settings.settingsFlow.collect { prefs ->
                     currentEnabled = prefs[NotifyFXSettings.SettingsKeys.ENABLED] ?: true
                     currentHideOriginal = prefs[NotifyFXSettings.SettingsKeys.HIDE_ORIGINAL] ?: false
                 }

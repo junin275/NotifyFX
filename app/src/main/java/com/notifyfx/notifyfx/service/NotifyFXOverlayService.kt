@@ -165,7 +165,7 @@ class NotifyFXOverlayService : AccessibilityService() {
 
         serviceScope.launch {
             runSuspendCatchingLogged(TAG, "Settings collector failed") {
-                settings.settingsFlow.subscribe { prefs ->
+                settings.settingsFlow.collect { prefs ->
                     if (destroyed) return@collect
                     val enabled = prefs[NotifyFXSettings.SettingsKeys.ENABLED] ?: true
                     val showOnLock = prefs[NotifyFXSettings.SettingsKeys.SHOW_ON_LOCK_SCREEN] ?: true
@@ -191,7 +191,8 @@ class NotifyFXOverlayService : AccessibilityService() {
         if (destroyed || !::viewModel.isInitialized) return
         serviceScope.launch {
             runSuspendCatchingLogged(TAG, "Service reconnect failed") {
-                val enabled = (settings.settingsFlow.firstOrNull()?[NotifyFXSettings.SettingsKeys.ENABLED]) ?: true
+                val prefs = settings.snapshot()
+                val enabled = prefs[NotifyFXSettings.SettingsKeys.ENABLED] ?: true
                 if (enabled) {
                     startOverlaySession()
                 } else {

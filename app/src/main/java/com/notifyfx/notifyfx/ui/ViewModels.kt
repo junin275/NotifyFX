@@ -31,10 +31,10 @@ class MainViewModel(
     val batteryOptimizationDisabled = MutableLiveData(false)
 
     init {
-        settings.settingsFlow.subscribe { prefs ->
-            settingsEnabled.value = prefs[NotifyFXSettings.SettingsKeys.ENABLED] ?: true
-        }.also { sub ->
-            viewModelScope.launch { sub.request(1) }
+        viewModelScope.launch {
+            settings.settingsFlow.collect { prefs ->
+                settingsEnabled.value = prefs[NotifyFXSettings.SettingsKeys.ENABLED] ?: true
+            }
         }
 
         // Check permissions
@@ -128,18 +128,18 @@ class SettingsViewModel(
     val defaultStyle = styleRepository.defaultStyle
 
     init {
-        settings.settingsFlow.subscribe { prefs ->
-            enabled.postValue(prefs[NotifyFXSettings.SettingsKeys.ENABLED] ?: true)
-            hideOriginal.postValue(prefs[NotifyFXSettings.SettingsKeys.HIDE_ORIGINAL] ?: false)
-            notificationHistory.postValue(prefs[NotifyFXSettings.SettingsKeys.NOTIFICATION_HISTORY] ?: true)
-            historyRetentionDays.postValue(prefs[NotifyFXSettings.SettingsKeys.HISTORY_RETENTION_DAYS] ?: 30)
-            playSound.postValue(prefs[NotifyFXSettings.SettingsKeys.PLAY_SOUND] ?: true)
-            vibration.postValue(prefs[NotifyFXSettings.SettingsKeys.VIBRATION] ?: true)
-            autoExpand.postValue(prefs[NotifyFXSettings.SettingsKeys.AUTO_EXPAND] ?: false)
-            showOnLockScreen.postValue(prefs[NotifyFXSettings.SettingsKeys.SHOW_ON_LOCK_SCREEN] ?: true)
-            showInLandscape.postValue(prefs[NotifyFXSettings.SettingsKeys.SHOW_IN_LANDSCAPE] ?: true)
-        }.also { sub ->
-            viewModelScope.launch { sub.request(1) }
+        viewModelScope.launch {
+            settings.settingsFlow.collect { prefs ->
+                enabled.postValue(prefs[NotifyFXSettings.SettingsKeys.ENABLED] ?: true)
+                hideOriginal.postValue(prefs[NotifyFXSettings.SettingsKeys.HIDE_ORIGINAL] ?: false)
+                notificationHistory.postValue(prefs[NotifyFXSettings.SettingsKeys.NOTIFICATION_HISTORY] ?: true)
+                historyRetentionDays.postValue(prefs[NotifyFXSettings.SettingsKeys.HISTORY_RETENTION_DAYS] ?: 30)
+                playSound.postValue(prefs[NotifyFXSettings.SettingsKeys.PLAY_SOUND] ?: true)
+                vibration.postValue(prefs[NotifyFXSettings.SettingsKeys.VIBRATION] ?: true)
+                autoExpand.postValue(prefs[NotifyFXSettings.SettingsKeys.AUTO_EXPAND] ?: false)
+                showOnLockScreen.postValue(prefs[NotifyFXSettings.SettingsKeys.SHOW_ON_LOCK_SCREEN] ?: true)
+                showInLandscape.postValue(prefs[NotifyFXSettings.SettingsKeys.SHOW_IN_LANDSCAPE] ?: true)
+            }
         }
     }
 

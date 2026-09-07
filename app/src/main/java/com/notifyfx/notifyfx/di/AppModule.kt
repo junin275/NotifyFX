@@ -33,7 +33,7 @@ object AppModule {
     @Provides
     @ApplicationScoped
     fun provideSettings(@ApplicationContext context: Context): NotifyFXSettings {
-        return NotifyFXSettings.getInstance(context)
+        return NotifyFXSettings(context)
     }
 
     @Provides
@@ -74,6 +74,6 @@ object ServiceModule {
     @Provides
     @ServiceScoped
     fun provideSettings(@ApplicationContext context: Context): NotifyFXSettings {
-        return NotifyFXSettings.getInstance(context)
+        return NotifyFXSettings(context)
     }
 }
