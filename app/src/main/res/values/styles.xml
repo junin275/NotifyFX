@@ -1,5 +1,6 @@
 <resources>
-    <style name="Theme.NotifyFX" parent="androidx.compose.material3.MaterialTheme">
-        <!-- No additional styling needed, Compose handles theming -->
+    <style name="Theme.NotifyFX" parent="android:Theme.Material.Light.NoActionBar">
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowBackground">@color/md_theme_light_background</item>
     </style>
 </resources>
