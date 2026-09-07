@@ -41,8 +41,8 @@ object NotificationParser {
             ?: extras.getCharSequence(Notification.EXTRA_INFO_TEXT)?.toString()
 
         // Timestamp
-        val whenTime = notification.when ?: 0L
-        val timestamp = if (whenTime != 0L) whenTime else sbn.postTime
+        val notifWhen = notification.`when` ?: 0L
+        val timestamp = if (notifWhen != 0L) notifWhen else sbn.postTime
 
         // Icons
         val icon = loadAppIcon(packageName, packageManager)
