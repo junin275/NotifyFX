@@ -3,6 +3,7 @@ package com.notifyfx.notifyfx.ui
 import android.app.Application
 import android.content.pm.ApplicationInfo
 import android.content.pm.PackageManager
+import android.provider.Settings
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -105,7 +106,10 @@ class DesignerViewModel(
     }
 
     fun saveCurrentStyle() {
-        currentStyle.value?.let { styleRepository.saveStyle(it) }
+        val style = currentStyle.value ?: return
+        viewModelScope.launch {
+            styleRepository.saveStyle(style)
+        }
     }
 }
 

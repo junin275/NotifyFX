@@ -14,6 +14,8 @@ import androidx.compose.material3.Surface
 import androidx.core.content.ContextCompat
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.launch
 import com.notifyfx.notifyfx.NotifyFXApp
 import com.notifyfx.notifyfx.R
 import com.notifyfx.notifyfx.data.INotificationRepository
@@ -95,7 +97,9 @@ class DesignerActivity : ComponentActivity() {
                 com.notifyfx.notifyfx.ui.screens.DesignerScreen(
                     viewModel = viewModel,
                     onSaveStyle = { style ->
-                        styleRepository.saveStyle(style)
+                        androidx.lifecycle.lifecycleScope.launch {
+                            styleRepository.saveStyle(style)
+                        }
                     }
                 )
             }
