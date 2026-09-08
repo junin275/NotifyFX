@@ -46,9 +46,7 @@ android {
         viewBinding = true
     }
 
-    composeOptions {
-        kotlinCompilerExtensionVersion = "1.4.0"
-    }
+    
 
     packagingOptions {
         resources {
