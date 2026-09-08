@@ -9,10 +9,12 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import com.notifyfx.notifyfx.data.converters.BitmapConverter
 import com.notifyfx.notifyfx.model.NotificationModel
 import com.notifyfx.notifyfx.model.NotificationStyle
 import com.notifyfx.notifyfx.model.AppStyleMapping
 import com.notifyfx.notifyfx.model.NotificationCategory
+import com.notifyfx.notifyfx.model.toNotificationCategory
 
 class NotificationRepositoryImpl(
     private val context: Context,
@@ -22,10 +24,10 @@ class NotificationRepositoryImpl(
     private val _notifications = MutableStateFlow<List<NotificationModel>>(emptyList())
     override val notifications: StateFlow<List<NotificationModel>> = _notifications
 
-    private val _commands = MutableStateFlow<NotificationCommand>(NotificationCommand.CollapseNotification())
+    private val _commands = MutableStateFlow<NotificationCommand>(NotificationCommand.CollapseNotification)
     override val commands: StateFlow<NotificationCommand> = _commands
 
-    override fun postNotification(notification: NotificationModel, autoExpand: Boolean = false) {
+    override fun postNotification(notification: NotificationModel, autoExpand: Boolean) {
         _notifications.update { current ->
             if (current.any { it.key == notification.key }) {
                 current.map { if (it.key == notification.key) notification else it }
@@ -89,6 +91,7 @@ class StyleRepositoryImpl(
     override val defaultStyle: LiveData<NotificationStyle?> = database.styleDao().getDefaultStyle()
     override val presets: LiveData<List<NotificationStyle>> = database.styleDao().getPresets()
     override val customStyles: LiveData<List<NotificationStyle>> = database.styleDao().getCustomStyles()
+    override val allStyles: LiveData<List<NotificationStyle>> = database.styleDao().getAllStyles()
     override val appStyleMappings: LiveData<List<AppStyleMapping>> = database.appStyleDao().getAllMappings()
 
     override suspend fun getStyle(id: String): NotificationStyle? {
@@ -112,7 +115,7 @@ class StyleRepositoryImpl(
         getStyle(id)?.let { _currentStyle.value = it }
     }
 
-    override fun getStyleForApp(packageName: String): NotificationStyle? {
+    override suspend fun getStyleForApp(packageName: String): NotificationStyle? {
         val mapping = database.appStyleDao().getMappingSync(packageName)
         return mapping?.let { database.styleDao().getStyleSync(it.styleId) }
     }

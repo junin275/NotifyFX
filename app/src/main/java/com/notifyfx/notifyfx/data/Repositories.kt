@@ -1,9 +1,9 @@
 package com.notifyfx.notifyfx.data
 
 import androidx.lifecycle.LiveData
+import com.notifyfx.notifyfx.model.AppStyleMapping
 import com.notifyfx.notifyfx.model.NotificationModel
 import com.notifyfx.notifyfx.model.NotificationStyle
-import com.notifyfx.notifyfx.model.AppStyleMapping
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 
@@ -21,7 +21,7 @@ interface INotificationRepository {
 sealed interface NotificationCommand {
     data class CancelNotification(val key: String) : NotificationCommand
     data class ExpandNotification(val key: String) : NotificationCommand
-    data class CollapseNotification : NotificationCommand
+    data object CollapseNotification : NotificationCommand
     data class ActionClicked(val key: String, val actionIndex: Int) : NotificationCommand
     data class QuickReply(val key: String, val text: String) : NotificationCommand
 }
@@ -31,12 +31,13 @@ interface IStyleRepository {
     val defaultStyle: LiveData<NotificationStyle?>
     val presets: LiveData<List<NotificationStyle>>
     val customStyles: LiveData<List<NotificationStyle>>
+    val allStyles: LiveData<List<NotificationStyle>>
 
     suspend fun getStyle(id: String): NotificationStyle?
     suspend fun saveStyle(style: NotificationStyle)
     suspend fun deleteCustomStyle(id: String)
     suspend fun setDefaultStyle(id: String)
-    fun getStyleForApp(packageName: String): NotificationStyle?
+    suspend fun getStyleForApp(packageName: String): NotificationStyle?
     suspend fun setAppStyle(mapping: AppStyleMapping)
     suspend fun removeAppStyle(packageName: String)
     val appStyleMappings: LiveData<List<AppStyleMapping>>

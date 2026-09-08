@@ -33,14 +33,14 @@ data class NotificationStyle(
     val itemSpacing: Float = 8f,       // dp
 
     // Background
-    val backgroundColor: Int = 0xFFFFFFFF,
+    val backgroundColor: Int = 0xFFFFFFFF.toInt(),
     val backgroundBlur: Float = 0f,    // 0-100
     val transparency: Float = 0f,      // 0-100
     val useMaterialSurface: Boolean = true,
 
     // Border
     val borderWidth: Float = 0f,
-    val borderColor: Int = 0xFF000000,
+    val borderColor: Int = 0xFF000000.toInt(),
 
     // Shadow
     @TypeConverters(ShadowConfigConverter::class) val shadow: ShadowConfig = ShadowConfig(),
@@ -53,26 +53,26 @@ data class NotificationStyle(
     // Typography - Title
     val titleFontFamily: String = "sans-serif-medium",
     val titleFontSize: Float = 16f,    // sp
-    val titleColor: Int = 0xFF1C1B1F,
+    val titleColor: Int = 0xFF1C1B1F.toInt(),
     val titleMaxLines: Int = 1,
 
     // Typography - Text
     val textFontFamily: String = "sans-serif",
     val textFontSize: Float = 14f,     // sp
-    val textColor: Int = 0xFF49454F,
+    val textColor: Int = 0xFF49454F.toInt(),
     val textMaxLines: Int = 3,
 
     // Typography - SubText
     val subTextFontSize: Float = 12f,  // sp
-    val subTextColor: Int = 0xFF79747E,
+    val subTextColor: Int = 0xFF79747E.toInt(),
 
     // Actions
     val actionButtonHeight: Float = 36f,    // dp
     val actionButtonCornerRadius: Float = 18f, // dp
     val actionButtonPadding: Float = 16f,   // dp
     val actionSpacing: Float = 8f,          // dp
-    val actionBackgroundColor: Int = 0xFFE8DEF8,
-    val actionTextColor: Int = 0xFF381E72,
+    val actionBackgroundColor: Int = 0xFFE8DEF8.toInt(),
+    val actionTextColor: Int = 0xFF381E72.toInt(),
     val actionFontSize: Float = 14f,        // sp
     val actionFontFamily: String = "sans-serif-medium",
 
@@ -96,7 +96,7 @@ data class NotificationStyle(
     val showTimestamp: Boolean = false,
     val showProgressBar: Boolean = true,
     val progressBarHeight: Float = 4f,
-    val progressBarColor: Int = 0xFF6750A4
+    val progressBarColor: Int = 0xFF6750A4.toInt()
 ) {
     companion object {
         // Preset styles
@@ -107,14 +107,14 @@ data class NotificationStyle(
             width = 340f,
             cornerRadius = 12f,
             padding = 12f,
-            backgroundColor = 0xFFFFFFFF,
-            transparency = 5,
+            backgroundColor = 0xFFFFFFFF.toInt(),
+            transparency = 5f,
             shadow = ShadowConfig(elevation = 2f),
             iconSize = 36f,
             titleFontSize = 15f,
             textFontSize = 13f,
             actionButtonHeight = 32f,
-            animationDuration = 200
+            animationDuration = 200L
         )
 
         val PRESET_GLASS = NotificationStyle(
@@ -124,16 +124,16 @@ data class NotificationStyle(
             width = 360f,
             cornerRadius = 20f,
             padding = 16f,
-            backgroundColor = 0xCCFFFFFF,
+            backgroundColor = 0xCCFFFFFF.toInt(),
             backgroundBlur = 30f,
-            transparency = 20,
+            transparency = 20f,
             shadow = ShadowConfig(elevation = 8f, blur = 20f),
             iconSize = 44f,
             titleFontSize = 16f,
             textFontSize = 14f,
             actionButtonCornerRadius = 20f,
-            actionBackgroundColor = 0x80FFFFFF,
-            animationDuration = 400
+            actionBackgroundColor = 0x80FFFFFF.toInt(),
+            animationDuration = 400L
         )
 
         val PRESET_MATERIAL = NotificationStyle(
@@ -143,15 +143,15 @@ data class NotificationStyle(
             width = 360f,
             cornerRadius = 16f,
             padding = 16f,
-            backgroundColor = 0xFFFFFFFF,
+            backgroundColor = 0xFFFFFFFF.toInt(),
             shadow = ShadowConfig(elevation = 6f, blur = 12f),
             iconSize = 40f,
             titleFontSize = 16f,
             textFontSize = 14f,
             actionButtonCornerRadius = 18f,
-            actionBackgroundColor = 0xFFE8DEF8,
-            actionTextColor = 0xFF381E72,
-            animationDuration = 300
+            actionBackgroundColor = 0xFFE8DEF8.toInt(),
+            actionTextColor = 0xFF381E72.toInt(),
+            animationDuration = 300L
         )
 
         val PRESET_IOS = NotificationStyle(
@@ -161,18 +161,18 @@ data class NotificationStyle(
             width = 340f,
             cornerRadius = 14f,
             padding = 14f,
-            backgroundColor = 0xFFFFFFFF,
-            transparency = 2,
+            backgroundColor = 0xFFFFFFFF.toInt(),
+            transparency = 2f,
             shadow = ShadowConfig(elevation = 4f, blur = 16f, color = 0x33000000),
             iconSize = 38f,
             titleFontSize = 15f,
             textFontSize = 13f,
-            subTextColor = 0xFF8E8E93,
+            subTextColor = 0xFF8E8E93.toInt(),
             actionButtonHeight = 40f,
             actionButtonCornerRadius = 12f,
-            actionBackgroundColor = 0xFF007AFF,
-            actionTextColor = 0xFFFFFFFF,
-            animationDuration = 250
+            actionBackgroundColor = 0xFF007AFF.toInt(),
+            actionTextColor = 0xFFFFFFFF.toInt(),
+            animationDuration = 250L
         )
 
         val PRESET_COMPACT = NotificationStyle(
@@ -184,14 +184,14 @@ data class NotificationStyle(
             cornerRadius = 10f,
             padding = 10f,
             itemSpacing = 4f,
-            backgroundColor = 0xFFFFFFFF,
+            backgroundColor = 0xFFFFFFFF.toInt(),
             shadow = ShadowConfig(elevation = 3f),
             iconSize = 32f,
             titleFontSize = 14f,
             textFontSize = 12f,
             textMaxLines = 2,
             actionButtonHeight = 28f,
-            animationDuration = 150
+            animationDuration = 150L
         )
 
         val PRESET_AMOLED = NotificationStyle(
@@ -201,18 +201,18 @@ data class NotificationStyle(
             width = 360f,
             cornerRadius = 16f,
             padding = 16f,
-            backgroundColor = 0xFF000000,
-            transparency = 0,
+            backgroundColor = 0xFF000000.toInt(),
+            transparency = 0f,
             shadow = ShadowConfig(elevation = 0f),
             borderWidth = 1f,
-            borderColor = 0xFF333333,
+            borderColor = 0xFF333333.toInt(),
             iconSize = 40f,
-            titleColor = 0xFFFFFFFF,
-            textColor = 0xFFB0B0B0,
-            subTextColor = 0xFF808080,
-            actionBackgroundColor = 0xFF1A1A1A,
-            actionTextColor = 0xFFFFFFFF,
-            animationDuration = 300
+            titleColor = 0xFFFFFFFF.toInt(),
+            textColor = 0xFFB0B0B0.toInt(),
+            subTextColor = 0xFF808080.toInt(),
+            actionBackgroundColor = 0xFF1A1A1A.toInt(),
+            actionTextColor = 0xFFFFFFFF.toInt(),
+            animationDuration = 300L
         )
 
         val PRESET_BUBBLE = NotificationStyle(
@@ -222,7 +222,7 @@ data class NotificationStyle(
             width = 340f,
             cornerRadius = 24f,
             padding = 18f,
-            backgroundColor = 0xFFFFFFFF,
+            backgroundColor = 0xFFFFFFFF.toInt(),
             shadow = ShadowConfig(elevation = 12f, blur = 24f, color = 0x40000000),
             iconSize = 44f,
             iconCornerRadius = 12f,
@@ -230,9 +230,9 @@ data class NotificationStyle(
             textFontSize = 14f,
             actionButtonHeight = 40f,
             actionButtonCornerRadius = 20f,
-            actionBackgroundColor = 0xFF6750A4,
-            actionTextColor = 0xFFFFFFFF,
-            animationDuration = 350
+            actionBackgroundColor = 0xFF6750A4.toInt(),
+            actionTextColor = 0xFFFFFFFF.toInt(),
+            animationDuration = 350L
         )
 
         val PRESET_MODERN = NotificationStyle(
@@ -243,9 +243,9 @@ data class NotificationStyle(
             cornerRadius = 20f,
             padding = 20f,
             itemSpacing = 12f,
-            backgroundColor = 0xFFFAFAFA,
+            backgroundColor = 0xFFFAFAFA.toInt(),
             backgroundBlur = 10f,
-            transparency = 5,
+            transparency = 5f,
             shadow = ShadowConfig(elevation = 10f, blur = 30f, color = 0x30000000),
             iconSize = 48f,
             iconCornerRadius = 14f,
@@ -254,9 +254,9 @@ data class NotificationStyle(
             textFontSize = 15f,
             actionButtonHeight = 44f,
             actionButtonCornerRadius = 22f,
-            actionBackgroundColor = 0xFF1C1B1F,
-            actionTextColor = 0xFFFFFFFF,
-            animationDuration = 400
+            actionBackgroundColor = 0xFF1C1B1F.toInt(),
+            actionTextColor = 0xFFFFFFFF.toInt(),
+            animationDuration = 400L
         )
 
         val ALL_PRESETS = listOf(

@@ -80,10 +80,10 @@ class NotificationActionConverter {
             if (segments.size < 2) return@mapNotNull null
             com.notifyfx.notifyfx.model.NotificationAction(
                 title = segments[0],
-                isQuickReply = segments[1].toBooleanOrNull() ?: false,
+                isQuickReply = segments[1] == "true",
                 remoteInputKey = segments[2].takeIf { it.isNotBlank() },
                 remoteInputLabel = segments[3].takeIf { it.isNotBlank() },
-                allowFreeFormInput = segments[4].toBooleanOrNull() ?: true
+                allowFreeFormInput = segments.getOrElse(4) { "true" } == "true"
             )
         }
     }
