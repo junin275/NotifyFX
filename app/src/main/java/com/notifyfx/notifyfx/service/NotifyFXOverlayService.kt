@@ -13,22 +13,26 @@ import android.content.IntentFilter
 import android.graphics.PixelFormat
 import android.os.Build
 import android.provider.Settings
+import android.util.Log
 import android.view.Gravity
 import android.view.WindowManager
 import android.widget.Toast
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.ViewCompositionStrategy
+import androidx.core.app.ServiceCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.setViewTreeLifecycleOwner
 import androidx.lifecycle.setViewTreeViewModelStoreOwner
 import androidx.savedstate.setViewTreeSavedStateRegistryOwner
-import com.notifyfx.notifyfx.MainActivity
 import com.notifyfx.notifyfx.R
 import com.notifyfx.notifyfx.data.INotificationRepository
+import com.notifyfx.notifyfx.data.NotificationCommand
 import com.notifyfx.notifyfx.data.NotifyFXSettings
+import com.notifyfx.notifyfx.data.SettingsKeys
 import com.notifyfx.notifyfx.model.NotificationModel
 import com.notifyfx.notifyfx.overlay.NotificationOverlayView
 import com.notifyfx.notifyfx.overlay.OverlayViewTreeOwners
+import com.notifyfx.notifyfx.ui.MainActivity
 import com.notifyfx.notifyfx.ui.OverlayViewModel
 import com.notifyfx.notifyfx.util.runCatchingLogged
 import com.notifyfx.notifyfx.util.runSuspendCatchingLogged
@@ -58,6 +62,12 @@ class NotifyFXOverlayService : AccessibilityService() {
     @Volatile private var destroyed = false
     private var isWindowVisible: Boolean = false
     private var lastParams: WindowManager.LayoutParams? = null
+
+    private val serviceScope = kotlinx.coroutines.CoroutineScope(
+        SupervisorJob() + Dispatchers.Main.immediate + CoroutineExceptionHandler { _, error ->
+            Log.e(TAG, "Unhandled overlay coroutine failure", error)
+        }
+    )
 
     private val screenStateReceiver = object : android.content.BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
@@ -157,12 +167,6 @@ class NotifyFXOverlayService : AccessibilityService() {
         val keyguardManager = getSystemService(Context.KEYGUARD_SERVICE) as? KeyguardManager
         isLockScreenActive = keyguardManager?.isKeyguardLocked == true
 
-        val serviceScope = kotlinx.coroutines.CoroutineScope(
-            SupervisorJob() + Dispatchers.Main.immediate + CoroutineExceptionHandler { _, error ->
-                Log.e(TAG, "Unhandled overlay coroutine failure", error)
-            }
-        )
-
         serviceScope.launch {
             runSuspendCatchingLogged(TAG, "Settings collector failed") {
                 settings.settingsFlow.collect { prefs ->
@@ -211,7 +215,7 @@ class NotifyFXOverlayService : AccessibilityService() {
         super.onTaskRemoved(rootIntent)
         runCatchingLogged(TAG, "onTaskRemoved recovery failed") {
             if (!destroyed && ::viewModel.isInitialized) {
-                val enabled = viewModel.settingsEnabled.value
+                val enabled = viewModel.settingsEnabled.value == true
                 if (enabled) {
                     ensureForegroundStarted()
                     ensureOverlayWindow()
@@ -279,7 +283,7 @@ class NotifyFXOverlayService : AccessibilityService() {
                 val isLocked = keyguardManager?.isKeyguardLocked == true
                 isLockScreenActive = isLocked
                 val isLandscape = resources.configuration.orientation == android.content.res.Configuration.ORIENTATION_LANDSCAPE
-                val isHidden = (!viewModel.settingsShowOnLockScreen.value && isLocked) || (isLandscape && !viewModel.settingsShowInLandscape.value)
+                val isHidden = (viewModel.settingsShowOnLockScreen.value != true && isLocked) || (isLandscape && viewModel.settingsShowInLandscape.value != true)
                 visibility = if (isHidden) android.view.View.GONE else android.view.View.VISIBLE
 
                 installOverlayViewTreeOwners()
@@ -334,9 +338,9 @@ class NotifyFXOverlayService : AccessibilityService() {
         viewModel.isLocked.value = isLocked
 
         val isLandscape = resources.configuration.orientation == android.content.res.Configuration.ORIENTATION_LANDSCAPE
-        val isHidden = (!viewModel.settingsShowOnLockScreen.value && isLocked) || (isLandscape && !viewModel.settingsShowInLandscape.value)
+        val isHidden = (viewModel.settingsShowOnLockScreen.value != true && isLocked) || (isLandscape && viewModel.settingsShowInLandscape.value != true)
         val hasNotifications = viewModel.notifications.value.isNotEmpty()
-        val enabled = viewModel.settingsEnabled.value
+        val enabled = viewModel.settingsEnabled.value == true
 
         val shouldShow = enabled && hasNotifications && !isHidden
         val targetVisibility = if (shouldShow) android.view.View.VISIBLE else android.view.View.GONE
@@ -362,7 +366,7 @@ class NotifyFXOverlayService : AccessibilityService() {
 
     private fun openNotification(notification: NotificationModel) {
         if (notification.contentIntent != null) {
-            sendIntentWithOptions(this, notification.contentIntent!!)
+            sendIntentWithOptions(notification.contentIntent!!)
         } else {
             runCatchingLogged(TAG, "Failed to launch package activity") {
                 val launchIntent = packageManager.getLaunchIntentForPackage(notification.packageName)
@@ -386,7 +390,7 @@ class NotifyFXOverlayService : AccessibilityService() {
                 // TODO: Show inline reply UI
                 viewModel.showQuickReply(notification, action)
             } else if (action.pendingIntent != null) {
-                sendIntentWithOptions(this, action.pendingIntent!!)
+                sendIntentWithOptions(action.pendingIntent!!)
                 notificationRepository.removeNotification(notification.key)
             }
         }
@@ -394,7 +398,7 @@ class NotifyFXOverlayService : AccessibilityService() {
 
     private fun dismissNotification(notification: NotificationModel) {
         notificationRepository.removeNotification(notification.key)
-        notificationRepository.sendCommand(NotificationRepositoryImpl.NotificationCommand.CancelNotification(notification.key))
+        notificationRepository.sendCommand(NotificationCommand.CancelNotification(notification.key))
     }
 
     private fun createNotificationChannel() {

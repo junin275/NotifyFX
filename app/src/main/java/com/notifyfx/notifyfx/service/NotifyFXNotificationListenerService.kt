@@ -15,6 +15,7 @@ import androidx.core.app.ServiceCompat
 import com.notifyfx.notifyfx.NotifyFXApp
 import com.notifyfx.notifyfx.data.INotificationRepository
 import com.notifyfx.notifyfx.data.NotifyFXSettings
+import com.notifyfx.notifyfx.data.SettingsKeys
 import com.notifyfx.notifyfx.model.NotificationModel
 import com.notifyfx.notifyfx.util.NotificationParser
 import com.notifyfx.notifyfx.util.runCatchingLogged
@@ -24,6 +25,7 @@ import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -235,13 +237,17 @@ class NotifyFXNotificationListenerService : NotificationListenerService() {
 
             // Check notification channel (Android 8+)
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                val channel = notification.channel?.let { notificationManager.getNotificationChannel(it) }
-                if (channel != null) {
-                    if (channel.importance < NotificationManager.IMPORTANCE_DEFAULT) return@runCatchingLogged
-                    val chSound = channel.sound
-                    if (chSound != null && chSound != android.net.Uri.EMPTY) {
-                        soundUri = chSound
-                        audioAttributes = channel.audioAttributes
+                val channelId = notification.channelId
+                if (channelId != null) {
+                    val nm = getSystemService(NotificationManager::class.java)
+                    val channel = nm?.getNotificationChannel(channelId)
+                    if (channel != null) {
+                        if (channel.importance < NotificationManager.IMPORTANCE_DEFAULT) return@runCatchingLogged
+                        val chSound = channel.sound
+                        if (chSound != null && chSound != android.net.Uri.EMPTY) {
+                            soundUri = chSound
+                            audioAttributes = channel.audioAttributes
+                        }
                     }
                 }
             }
