@@ -47,6 +47,10 @@ android {
         viewBinding = true
     }
 
+    composeOptions {
+        kotlinCompilerExtensionVersion = "2.0.0"
+    }
+
     packagingOptions {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1,LICENSE,LICENSE.txt,NOTICE,NOTICE.txt}"
@@ -61,17 +65,20 @@ dependencies {
     implementation("androidx.activity:activity-compose:1.9.1")
     implementation("androidx.window:window:1.3.0")
 
-    // Compose BOM
-    val composeBom = platform("androidx.compose:compose-bom:2024.06.00")
-    implementation(composeBom)
-    implementation("androidx.compose.ui:ui")
-    implementation("androidx.compose.ui:ui-graphics")
-    implementation("androidx.compose.ui:ui-tooling-preview")
-    implementation("androidx.compose.material3:material3")
-    implementation("androidx.compose.material3:material3-window-size-class")
+    // Compose - explicit versions for reliability
+    implementation("androidx.compose.ui:ui:1.7.5")
+    implementation("androidx.compose.ui:ui-graphics:1.7.5")
+    implementation("androidx.compose.ui:ui-tooling-preview:1.7.5")
+    implementation("androidx.compose.material3:material3:1.3.0")
+    implementation("androidx.compose.material3:material3-window-size-class:1.3.0")
     implementation("androidx.compose.material:material-icons-extended:1.7.5")
-    implementation("androidx.compose.runtime:runtime-livedata")
-    implementation("androidx.compose.runtime:runtime-rxjava2")
+    implementation("androidx.compose.runtime:runtime-livedata:1.7.5")
+    implementation("androidx.compose.runtime:runtime-rxjava2:1.7.5")
+    implementation("androidx.compose.foundation:foundation:1.7.5")
+    implementation("androidx.compose.foundation:foundation-layout:1.7.5")
+    implementation("androidx.compose.material:material:1.7.5")
+    implementation("androidx.compose.animation:animation:1.7.5")
+    implementation("androidx.compose.animation:animation-graphics:1.7.5")
 
     // Navigation
     implementation("androidx.navigation:navigation-compose:2.8.1")
@@ -99,7 +106,7 @@ dependencies {
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.8.1")
     androidTestImplementation("androidx.test.ext:junit:1.2.1")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.6.1")
-    androidTestImplementation("androidx.compose.ui:ui-test-junit4")
-    debugImplementation("androidx.compose.ui:ui-tooling")
-    debugImplementation("androidx.compose.ui:ui-test-manifest")
+    androidTestImplementation("androidx.compose.ui:ui-test-junit4:1.7.5")
+    debugImplementation("androidx.compose.ui:ui-tooling:1.7.5")
+    debugImplementation("androidx.compose.ui:ui-test-manifest:1.7.5")
 }

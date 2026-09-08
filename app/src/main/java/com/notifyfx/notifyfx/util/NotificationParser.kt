@@ -64,9 +64,7 @@ object NotificationParser {
         val conversationName = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             extras.getString(Notification.EXTRA_CONVERSATION_TITLE)
         } else null
-        val conversationId = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            extras.getString(Notification.EXTRA_CONVERSATION_ID)
-        } else null
+        val conversationId: String? = null
 
         // Channel ID (Android 8+)
         val channelId = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {

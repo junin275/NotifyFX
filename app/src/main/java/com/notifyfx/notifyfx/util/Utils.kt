@@ -7,7 +7,7 @@ import androidx.core.content.ContextCompat
 fun Context.isNotificationListenerEnabled(): Boolean {
     val enabledServices = Settings.Secure.getString(
         contentResolver,
-        Settings.Secure.ENABLED_NOTIFICATION_LISTENERS
+        "enabled_notification_listeners"
     ) ?: return false
     return enabledServices.contains("com.notifyfx.notifyfx")
 }
