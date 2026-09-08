@@ -97,7 +97,7 @@ class DesignerActivity : ComponentActivity() {
                 com.notifyfx.notifyfx.ui.screens.DesignerScreen(
                     viewModel = viewModel,
                     onSaveStyle = { style ->
-                        androidx.lifecycle.lifecycleScope.launch {
+                        lifecycleScope.launch {
                             styleRepository.saveStyle(style)
                         }
                     }

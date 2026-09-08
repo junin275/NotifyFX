@@ -134,13 +134,13 @@ fun HomeScreen(
             ActionCard(
                 title = "Notification Designer",
                 description = "Create and preview custom notification styles",
-                icon = androidx.compose.material.icons.Icons.Default.DesignServices,
+                icon = androidx.compose.material.icons.Icons.Default.DashboardCustomize,
                 onClick = onOpenDesigner
             )
             ActionCard(
                 title = "Per-App Styles",
                 description = "Different styles for different apps",
-                icon = androidx.compose.material.icons.Icons.Default.Apps,
+                icon = androidx.compose.material.icons.Icons.Default.GridView,
                 onClick = onOpenAppStyles
             )
             ActionCard(

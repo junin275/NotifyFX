@@ -69,7 +69,7 @@ fun SettingsScreen(
                 SettingRow(
                     title = "Enable NotifyFX",
                     description = "Intercept and customize system notifications",
-                    icon = androidx.compose.material.icons.Icons.Default.NotificationsActive,
+                    icon = androidx.compose.material.icons.Icons.Default.Notificationss,
                     trailing = {
                         Switch(checked = enabled, onCheckedChange = viewModel::setEnabled)
                     }
@@ -95,7 +95,7 @@ fun SettingsScreen(
                 SettingRow(
                     title = "Vibration",
                     description = "Vibrate on new notification",
-                    icon = androidx.compose.material.icons.Icons.Default.Vibration,
+                    icon = androidx.compose.material.icons.Icons.Default.PhoneVibration,
                     trailing = {
                         Switch(checked = vibration, onCheckedChange = viewModel::setVibration)
                     },
@@ -125,7 +125,7 @@ fun SettingsScreen(
                 SettingRow(
                     title = "Show in Landscape",
                     description = "Display notifications in landscape orientation",
-                    icon = androidx.compose.material.icons.Icons.Default.ScreenRotation,
+                    icon = androidx.compose.material.icons.Icons.Default.RotateLeft,
                     trailing = {
                         Switch(checked = showInLandscape, onCheckedChange = viewModel::setShowInLandscape)
                     }
@@ -146,7 +146,7 @@ fun SettingsScreen(
                     SettingRow(
                         title = "History Retention",
                         description = "Days to keep notification history",
-                        icon = androidx.compose.material.icons.Icons.Default.Schedule,
+                        icon = androidx.compose.material.icons.Icons.Default.Event,
                         trailing = {
                             Text(text = "$historyRetentionDays days", fontSize = 14.sp)
                         },
@@ -162,7 +162,7 @@ fun SettingsScreen(
                 SettingRow(
                     title = "Notification Listener",
                     description = "Required to read notifications",
-                    icon = androidx.compose.material.icons.Icons.Default.Security,
+                    icon = androidx.compose.material.icons.Icons.Default.Shield,
                     trailing = {
                         Button(onClick = onRequestNotificationListener) { Text("Grant") }
                     }
@@ -178,7 +178,7 @@ fun SettingsScreen(
                 SettingRow(
                     title = "Battery Optimization",
                     description = "Disable to keep service running",
-                    icon = androidx.compose.material.icons.Icons.Default.BatteryAlert,
+                    icon = androidx.compose.material.icons.Icons.Default.BatteryFull,
                     trailing = {
                         Button(onClick = onRequestBatteryOptimization) { Text("Disable") }
                     }
@@ -190,7 +190,7 @@ fun SettingsScreen(
                 SettingRow(
                     title = "Clear All Notifications",
                     description = "Remove all active custom notifications",
-                    icon = androidx.compose.material.icons.Icons.Default.DeleteSweep,
+                    icon = androidx.compose.material.icons.Icons.Default.Delete,
                     trailing = {
                         Button(onClick = { viewModel.clearAllNotifications() }, colors = androidx.compose.material3.ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.errorContainer)) {
                             Text("Clear")
@@ -209,7 +209,7 @@ fun SettingsScreen(
                 SettingRow(
                     title = "Privacy",
                     description = "Your data stays on your device",
-                    icon = androidx.compose.material.icons.Icons.Default.PrivacyTip,
+                    icon = androidx.compose.material.icons.Icons.Default.Shield,
                     onClick = {
                         // TODO: Show privacy dialog
                     }
@@ -217,7 +217,7 @@ fun SettingsScreen(
                 SettingRow(
                     title = "Open Source",
                     description = "View source code on GitHub",
-                    icon = androidx.compose.material.icons.Icons.Default.Code,
+                    icon = androidx.compose.material.icons.Icons.Default.Terminal,
                     onClick = {
                         // TODO: Open GitHub
                     }

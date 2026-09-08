@@ -14,11 +14,15 @@ import com.notifyfx.notifyfx.data.IStyleRepository
 import com.notifyfx.notifyfx.model.NotificationModel
 import com.notifyfx.notifyfx.model.NotificationStyle
 import com.notifyfx.notifyfx.model.AppStyleMapping
+import com.notifyfx.notifyfx.data.SettingsKeys
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class MainViewModel(
+@HiltViewModel
+class MainViewModel @Inject constructor(
     application: Application,
     private val notificationRepository: INotificationRepository,
     private val settings: NotifyFXSettings,
@@ -34,7 +38,7 @@ class MainViewModel(
     init {
         viewModelScope.launch {
             settings.settingsFlow.collect { prefs ->
-                settingsEnabled.value = prefs[NotifyFXSettings.SettingsKeys.ENABLED] ?: true
+                settingsEnabled.value = prefs[SettingsKeys.ENABLED] ?: true
             }
         }
 
@@ -52,7 +56,7 @@ class MainViewModel(
 
     private fun isNotificationListenerEnabled(): Boolean {
         val enabledServices = Settings.Secure.getString(
-            application.contentResolver,
+            getApplication<Application>().contentResolver,
             Settings.Secure.ENABLED_NOTIFICATION_LISTENERS
         ) ?: return false
         return enabledServices.contains("com.notifyfx.notifyfx")
@@ -60,15 +64,15 @@ class MainViewModel(
 
     private fun isOverlayPermissionGranted(): Boolean {
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
-            return Settings.canDrawOverlays(application)
+            return Settings.canDrawOverlays(getApplication<Application>())
         }
         return true
     }
 
     private fun isBatteryOptimizationDisabled(): Boolean {
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
-            val powerManager = application.getSystemService(android.os.PowerManager::class.java)
-            return powerManager.isIgnoringBatteryOptimizations(application.packageName)
+            val powerManager = getApplication<Application>().getSystemService(android.os.PowerManager::class.java)
+            return powerManager.isIgnoringBatteryOptimizations(getApplication<Application>().packageName)
         }
         return true
     }
@@ -84,7 +88,8 @@ class MainViewModel(
     }
 }
 
-class DesignerViewModel(
+@HiltViewModel
+class DesignerViewModel @Inject constructor(
     application: Application,
     private val styleRepository: IStyleRepository
 ) : AndroidViewModel(application) {
@@ -113,7 +118,8 @@ class DesignerViewModel(
     }
 }
 
-class SettingsViewModel(
+@HiltViewModel
+class SettingsViewModel @Inject constructor(
     application: Application,
     private val settings: NotifyFXSettings,
     private val notificationRepository: INotificationRepository,
@@ -134,15 +140,15 @@ class SettingsViewModel(
     init {
         viewModelScope.launch {
             settings.settingsFlow.collect { prefs ->
-                enabled.postValue(prefs[NotifyFXSettings.SettingsKeys.ENABLED] ?: true)
-                hideOriginal.postValue(prefs[NotifyFXSettings.SettingsKeys.HIDE_ORIGINAL] ?: false)
-                notificationHistory.postValue(prefs[NotifyFXSettings.SettingsKeys.NOTIFICATION_HISTORY] ?: true)
-                historyRetentionDays.postValue(prefs[NotifyFXSettings.SettingsKeys.HISTORY_RETENTION_DAYS] ?: 30)
-                playSound.postValue(prefs[NotifyFXSettings.SettingsKeys.PLAY_SOUND] ?: true)
-                vibration.postValue(prefs[NotifyFXSettings.SettingsKeys.VIBRATION] ?: true)
-                autoExpand.postValue(prefs[NotifyFXSettings.SettingsKeys.AUTO_EXPAND] ?: false)
-                showOnLockScreen.postValue(prefs[NotifyFXSettings.SettingsKeys.SHOW_ON_LOCK_SCREEN] ?: true)
-                showInLandscape.postValue(prefs[NotifyFXSettings.SettingsKeys.SHOW_IN_LANDSCAPE] ?: true)
+                enabled.postValue(prefs[SettingsKeys.ENABLED] ?: true)
+                hideOriginal.postValue(prefs[SettingsKeys.HIDE_ORIGINAL] ?: false)
+                notificationHistory.postValue(prefs[SettingsKeys.NOTIFICATION_HISTORY] ?: true)
+                historyRetentionDays.postValue(prefs[SettingsKeys.HISTORY_RETENTION_DAYS] ?: 30)
+                playSound.postValue(prefs[SettingsKeys.PLAY_SOUND] ?: true)
+                vibration.postValue(prefs[SettingsKeys.VIBRATION] ?: true)
+                autoExpand.postValue(prefs[SettingsKeys.AUTO_EXPAND] ?: false)
+                showOnLockScreen.postValue(prefs[SettingsKeys.SHOW_ON_LOCK_SCREEN] ?: true)
+                showInLandscape.postValue(prefs[SettingsKeys.SHOW_IN_LANDSCAPE] ?: true)
             }
         }
     }
@@ -184,8 +190,10 @@ class SettingsViewModel(
     }
 
     fun setDefaultStyle(styleId: String) {
-        viewModelScope.launch { settings.setDefaultStyleId(styleId) }
-        styleRepository.setDefaultStyle(styleId)
+        viewModelScope.launch {
+            settings.setDefaultStyleId(styleId)
+            styleRepository.setDefaultStyle(styleId)
+        }
     }
 
     fun clearAllNotifications() {
@@ -193,7 +201,8 @@ class SettingsViewModel(
     }
 }
 
-class HistoryViewModel(
+@HiltViewModel
+class HistoryViewModel @Inject constructor(
     application: Application,
     private val historyRepository: com.notifyfx.notifyfx.data.IHistoryRepository
 ) : AndroidViewModel(application) {
@@ -216,13 +225,14 @@ class HistoryViewModel(
     }
 }
 
-class AppStylesViewModel(
+@HiltViewModel
+class AppStylesViewModel @Inject constructor(
     application: Application,
     private val styleRepository: IStyleRepository
 ) : AndroidViewModel(application) {
 
     val appStyles = styleRepository.appStyleMappings
-    val allStyles = styleRepository.getAllStyles()
+    val allStyles = styleRepository.allStyles
     val recentApps = MutableLiveData<List<AppInfo>>()
 
     data class AppInfo(
@@ -237,7 +247,7 @@ class AppStylesViewModel(
 
     private fun loadRecentApps() {
         viewModelScope.launch(Dispatchers.IO) {
-            val pm = application.packageManager
+            val pm = getApplication<Application>().packageManager
             val apps = styleRepository.appStyleMappings.value?.mapNotNull { mapping ->
                 try {
                     val appInfo = pm.getApplicationInfo(mapping.packageName, 0)

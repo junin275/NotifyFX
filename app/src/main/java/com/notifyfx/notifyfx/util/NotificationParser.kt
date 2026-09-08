@@ -18,7 +18,8 @@ object NotificationParser {
 
     fun parse(
         sbn: StatusBarNotification,
-        packageManager: PackageManager
+        packageManager: PackageManager,
+        context: android.content.Context
     ): NotificationModel {
         val notification = sbn.notification
         val extras = notification.extras
@@ -46,7 +47,7 @@ object NotificationParser {
 
         // Icons
         val icon = loadAppIcon(packageName, packageManager)
-        val largeIcon = loadLargeIcon(notification)
+        val largeIcon = loadLargeIcon(notification, context)
 
         // Actions
         val actions = parseActions(notification)
@@ -112,23 +113,23 @@ object NotificationParser {
         }
     }
 
-    private fun loadLargeIcon(notification: Notification): Bitmap? {
+    private fun loadLargeIcon(notification: Notification, context: android.content.Context): Bitmap? {
         // Try EXTRA_LARGE_ICON
         val extraLarge = notification.extras.get(Notification.EXTRA_LARGE_ICON)
         extraLarge?.let {
-            return (it as? Bitmap) ?: (it as? Icon)?.loadDrawable(null)?.toBitmap(LARGE_ICON_SIZE, LARGE_ICON_SIZE)
+            return (it as? Bitmap) ?: (it as? Icon)?.loadDrawable(context)?.toBitmap(LARGE_ICON_SIZE, LARGE_ICON_SIZE)
         }
 
         // Try EXTRA_LARGE_ICON_BIG
         val extraLargeBig = notification.extras.get(Notification.EXTRA_LARGE_ICON_BIG)
         extraLargeBig?.let {
-            return (it as? Bitmap) ?: (it as? Icon)?.loadDrawable(null)?.toBitmap(LARGE_ICON_SIZE, LARGE_ICON_SIZE)
+            return (it as? Bitmap) ?: (it as? Icon)?.loadDrawable(context)?.toBitmap(LARGE_ICON_SIZE, LARGE_ICON_SIZE)
         }
 
         // Try getLargeIcon()
         val largeIconObj = notification.largeIcon
         return try {
-            largeIconObj?.loadDrawable(null)?.toBitmap(LARGE_ICON_SIZE, LARGE_ICON_SIZE)
+            largeIconObj?.loadDrawable(context)?.toBitmap(LARGE_ICON_SIZE, LARGE_ICON_SIZE)
         } catch (e: Exception) {
             null
         }

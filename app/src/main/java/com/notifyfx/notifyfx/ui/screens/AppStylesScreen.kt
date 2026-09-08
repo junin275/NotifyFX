@@ -75,7 +75,7 @@ fun AppStylesScreen(viewModel: AppStylesViewModel) {
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
                         androidx.compose.material3.Icon(
-                            imageVector = androidx.compose.material.icons.Icons.Default.Apps,
+                            imageVector = androidx.compose.material.icons.Icons.Default.GridView,
                             contentDescription = null,
                             modifier = Modifier.size(48.dp),
                             tint = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.5f)
@@ -156,7 +156,7 @@ fun AppStyleRow(
                     )
                 } else {
                     androidx.compose.material3.Icon(
-                        imageVector = androidx.compose.material.icons.Icons.Default.Apps,
+                        imageVector = androidx.compose.material.icons.Icons.Default.GridView,
                         contentDescription = null,
                         modifier = Modifier.size(40.dp),
                         tint = MaterialTheme.colorScheme.primary

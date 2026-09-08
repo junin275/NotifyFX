@@ -136,7 +136,7 @@ fun HistoryItem(entry: com.notifyfx.notifyfx.data.NotificationHistoryEntry) {
                         )
                     } else {
                         androidx.compose.material3.Icon(
-                            imageVector = androidx.compose.material.icons.Icons.Default.Notification,
+                            imageVector = androidx.compose.material.icons.Icons.Default.Notifications,
                             contentDescription = null,
                             modifier = Modifier.size(40.dp),
                             tint = MaterialTheme.colorScheme.primary

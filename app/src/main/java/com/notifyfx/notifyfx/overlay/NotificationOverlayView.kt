@@ -136,7 +136,7 @@ fun RenderNotification(
                         )
                     } else {
                         Icon(
-                            imageVector = androidx.compose.material.icons.Icons.Default.Notifications,
+                            imageVector = androidx.compose.material.icons.Icons.Default.Notificationss,
                             contentDescription = notification.appName,
                             modifier = Modifier.size(style.iconSize.dp),
                             tint = Color(style.titleColor)

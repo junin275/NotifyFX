@@ -178,7 +178,7 @@ class NotifyFXNotificationListenerService : NotificationListenerService() {
         val notification = sbn.notification
 
         // Parse notification into our internal model
-        val model = NotificationParser.parse(sbn, packageManager)
+        val model = NotificationParser.parse(sbn, packageManager, this)
 
         // Check if it's a new notification
         val isNew = notificationRepository.notifications.value.none { it.key == sbn.key }
