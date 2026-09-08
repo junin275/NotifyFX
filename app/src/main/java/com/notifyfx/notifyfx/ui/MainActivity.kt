@@ -22,7 +22,7 @@ import com.notifyfx.notifyfx.data.INotificationRepository
 import com.notifyfx.notifyfx.data.NotifyFXSettings
 import com.notifyfx.notifyfx.data.NotificationRepositoryImpl
 import com.notifyfx.notifyfx.di.AppModule
-import com.notifyfx.notifyfx.overlay.OverlayViewModel
+import com.notifyfx.notifyfx.ui.OverlayViewModel
 import com.notifyfx.notifyfx.ui.screens.HomeScreen
 import com.notifyfx.notifyfx.util.isNotificationListenerEnabled
 import com.notifyfx.notifyfx.util.isOverlayPermissionGranted
