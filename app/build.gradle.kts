@@ -54,6 +54,16 @@ android {
     }
 }
 
+tasks.register("printCompileClasspath") {
+    doLast {
+        println("=== DEBUG COMPILE CLASSPATH ===")
+        configurations.getByName("debugCompileClasspath").files.forEach {
+            println("CP: ${it.name}")
+        }
+        println("=== END CLASSPATH ===")
+    }
+}
+
 dependencies {
     // Core Android
     implementation("androidx.core:core-ktx:1.13.1")

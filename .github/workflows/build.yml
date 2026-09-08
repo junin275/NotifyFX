@@ -32,6 +32,9 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
+      - name: Debug - print compile classpath
+        run: ./gradlew :app:printCompileClasspath --no-daemon 2>&1 | grep -E "CP: |DEBUG COMPILE|END CLASS|Could not|FAILED" | head -80
+
       - name: Build Debug APK
         run: ./gradlew assembleDebug --no-daemon --refresh-dependencies
 
