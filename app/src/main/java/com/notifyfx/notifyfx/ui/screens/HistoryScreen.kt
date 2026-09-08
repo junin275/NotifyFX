@@ -52,7 +52,7 @@ fun HistoryScreen(viewModel: HistoryViewModel) {
             ),
             navigationIcon = {
                 androidx.compose.material3.IconButton(onClick = { /* navigate back */ }) {
-                    androidx.compose.material.Icon(imageVector = androidx.compose.material.icons.default.ArrowBack, contentDescription = "Back")
+                    androidx.compose.material3.Icon(imageVector = androidx.compose.material.icons.Icons.Default.ArrowBack, contentDescription = "Back")
                 }
             },
             actions = {
@@ -71,8 +71,8 @@ fun HistoryScreen(viewModel: HistoryViewModel) {
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Center
                 ) {
-                    androidx.compose.material.Icon(
-                        imageVector = androidx.compose.material.icons.default.History,
+                    androidx.compose.material3.Icon(
+                        imageVector = androidx.compose.material.icons.Icons.Default.History,
                         contentDescription = null,
                         modifier = Modifier.size(64.dp),
                         tint = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.5f)
@@ -135,8 +135,8 @@ fun HistoryItem(entry: com.notifyfx.notifyfx.data.NotificationHistoryEntry) {
                             contentScale = androidx.compose.ui.layout.ContentScale.Crop
                         )
                     } else {
-                        androidx.compose.material.Icon(
-                            imageVector = androidx.compose.material.icons.default.Notification,
+                        androidx.compose.material3.Icon(
+                            imageVector = androidx.compose.material.icons.Icons.Default.Notification,
                             contentDescription = null,
                             modifier = Modifier.size(40.dp),
                             tint = MaterialTheme.colorScheme.primary

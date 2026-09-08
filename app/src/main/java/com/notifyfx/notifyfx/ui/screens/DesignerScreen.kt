@@ -75,7 +75,7 @@ fun DesignerScreen(
             ),
             navigationIcon = {
                 IconButton(onClick = { /* navigate back */ }) {
-                    Icon(imageVector = androidx.compose.material.icons.default.ArrowBack, contentDescription = "Back")
+                    Icon(imageVector = androidx.compose.material.icons.Icons.Default.ArrowBack, contentDescription = "Back")
                 }
             },
             actions = {
@@ -233,7 +233,7 @@ fun PresetButton(
             Text(text = preset.name, fontSize = 16.sp, fontWeight = FontWeight.Medium)
             if (isSelected) {
                 Icon(
-                    imageVector = androidx.compose.material.icons.default.Check,
+                    imageVector = androidx.compose.material.icons.Icons.Default.Check,
                     contentDescription = "Selected",
                     tint = MaterialTheme.colorScheme.primary
                 )

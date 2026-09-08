@@ -55,7 +55,7 @@ fun SettingsScreen(
             ),
             navigationIcon = {
                 androidx.compose.material3.IconButton(onClick = { /* navigate back */ }) {
-                    androidx.compose.material.Icon(imageVector = androidx.compose.material.icons.default.ArrowBack, contentDescription = "Back")
+                    androidx.compose.material3.Icon(imageVector = androidx.compose.material.icons.Icons.Default.ArrowBack, contentDescription = "Back")
                 }
             }
         )
@@ -69,7 +69,7 @@ fun SettingsScreen(
                 SettingRow(
                     title = "Enable NotifyFX",
                     description = "Intercept and customize system notifications",
-                    icon = androidx.compose.material.icons.default.NotificationsActive,
+                    icon = androidx.compose.material.icons.Icons.Default.NotificationsActive,
                     trailing = {
                         Switch(checked = enabled, onCheckedChange = viewModel::setEnabled)
                     }
@@ -77,7 +77,7 @@ fun SettingsScreen(
                 SettingRow(
                     title = "Hide Original Notifications",
                     description = "Remove notifications from system shade when customized",
-                    icon = androidx.compose.material.icons.default.VisibilityOff,
+                    icon = androidx.compose.material.icons.Icons.Default.VisibilityOff,
                     trailing = {
                         Switch(checked = hideOriginal, onCheckedChange = viewModel::setHideOriginal)
                     },
@@ -86,7 +86,7 @@ fun SettingsScreen(
                 SettingRow(
                     title = "Play Notification Sound",
                     description = "Play sound when notification arrives",
-                    icon = androidx.compose.material.icons.default.VolumeUp,
+                    icon = androidx.compose.material.icons.Icons.Default.VolumeUp,
                     trailing = {
                         Switch(checked = playSound, onCheckedChange = viewModel::setPlaySound)
                     },
@@ -95,7 +95,7 @@ fun SettingsScreen(
                 SettingRow(
                     title = "Vibration",
                     description = "Vibrate on new notification",
-                    icon = androidx.compose.material.icons.default.Vibration,
+                    icon = androidx.compose.material.icons.Icons.Default.Vibration,
                     trailing = {
                         Switch(checked = vibration, onCheckedChange = viewModel::setVibration)
                     },
@@ -104,7 +104,7 @@ fun SettingsScreen(
                 SettingRow(
                     title = "Auto-expand on new notification",
                     description = "Automatically expand the custom notification",
-                    icon = androidx.compose.material.icons.default.KeyboardArrowDown,
+                    icon = androidx.compose.material.icons.Icons.Default.KeyboardArrowDown,
                     trailing = {
                         Switch(checked = autoExpand, onCheckedChange = viewModel::setAutoExpand)
                     },
@@ -117,7 +117,7 @@ fun SettingsScreen(
                 SettingRow(
                     title = "Show on Lock Screen",
                     description = "Display notifications when device is locked",
-                    icon = androidx.compose.material.icons.default.Lock,
+                    icon = androidx.compose.material.icons.Icons.Default.Lock,
                     trailing = {
                         Switch(checked = showOnLockScreen, onCheckedChange = viewModel::setShowOnLockScreen)
                     }
@@ -125,7 +125,7 @@ fun SettingsScreen(
                 SettingRow(
                     title = "Show in Landscape",
                     description = "Display notifications in landscape orientation",
-                    icon = androidx.compose.material.icons.default.ScreenRotation,
+                    icon = androidx.compose.material.icons.Icons.Default.ScreenRotation,
                     trailing = {
                         Switch(checked = showInLandscape, onCheckedChange = viewModel::setShowInLandscape)
                     }
@@ -137,7 +137,7 @@ fun SettingsScreen(
                 SettingRow(
                     title = "Notification History",
                     description = "Keep local history of received notifications",
-                    icon = androidx.compose.material.icons.default.History,
+                    icon = androidx.compose.material.icons.Icons.Default.History,
                     trailing = {
                         Switch(checked = notificationHistory, onCheckedChange = viewModel::setNotificationHistory)
                     }
@@ -146,7 +146,7 @@ fun SettingsScreen(
                     SettingRow(
                         title = "History Retention",
                         description = "Days to keep notification history",
-                        icon = androidx.compose.material.icons.default.Schedule,
+                        icon = androidx.compose.material.icons.Icons.Default.Schedule,
                         trailing = {
                             Text(text = "$historyRetentionDays days", fontSize = 14.sp)
                         },
@@ -162,7 +162,7 @@ fun SettingsScreen(
                 SettingRow(
                     title = "Notification Listener",
                     description = "Required to read notifications",
-                    icon = androidx.compose.material.icons.default.Security,
+                    icon = androidx.compose.material.icons.Icons.Default.Security,
                     trailing = {
                         Button(onClick = onRequestNotificationListener) { Text("Grant") }
                     }
@@ -170,7 +170,7 @@ fun SettingsScreen(
                 SettingRow(
                     title = "Display Over Other Apps",
                     description = "Required to show custom notifications",
-                    icon = androidx.compose.material.icons.default.Layers,
+                    icon = androidx.compose.material.icons.Icons.Default.Layers,
                     trailing = {
                         Button(onClick = onRequestOverlayPermission) { Text("Grant") }
                     }
@@ -178,7 +178,7 @@ fun SettingsScreen(
                 SettingRow(
                     title = "Battery Optimization",
                     description = "Disable to keep service running",
-                    icon = androidx.compose.material.icons.default.BatteryAlert,
+                    icon = androidx.compose.material.icons.Icons.Default.BatteryAlert,
                     trailing = {
                         Button(onClick = onRequestBatteryOptimization) { Text("Disable") }
                     }
@@ -190,7 +190,7 @@ fun SettingsScreen(
                 SettingRow(
                     title = "Clear All Notifications",
                     description = "Remove all active custom notifications",
-                    icon = androidx.compose.material.icons.default.DeleteSweep,
+                    icon = androidx.compose.material.icons.Icons.Default.DeleteSweep,
                     trailing = {
                         Button(onClick = { viewModel.clearAllNotifications() }, colors = androidx.compose.material3.ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.errorContainer)) {
                             Text("Clear")
@@ -204,12 +204,12 @@ fun SettingsScreen(
                 SettingRow(
                     title = "Version",
                     description = "NotifyFX 1.0.0",
-                    icon = androidx.compose.material.icons.default.Info
+                    icon = androidx.compose.material.icons.Icons.Default.Info
                 )
                 SettingRow(
                     title = "Privacy",
                     description = "Your data stays on your device",
-                    icon = androidx.compose.material.icons.default.PrivacyTip,
+                    icon = androidx.compose.material.icons.Icons.Default.PrivacyTip,
                     onClick = {
                         // TODO: Show privacy dialog
                     }
@@ -217,7 +217,7 @@ fun SettingsScreen(
                 SettingRow(
                     title = "Open Source",
                     description = "View source code on GitHub",
-                    icon = androidx.compose.material.icons.default.Code,
+                    icon = androidx.compose.material.icons.Icons.Default.Code,
                     onClick = {
                         // TODO: Open GitHub
                     }
@@ -263,7 +263,7 @@ fun SettingRow(
             horizontalArrangement = Arrangement.spacedBy(16.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            androidx.compose.material.Icon(
+            androidx.compose.material3.Icon(
                 imageVector = icon,
                 contentDescription = null,
                 tint = MaterialTheme.colorScheme.primary.copy(alpha = alpha)

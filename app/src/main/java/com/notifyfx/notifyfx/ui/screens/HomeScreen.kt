@@ -134,25 +134,25 @@ fun HomeScreen(
             ActionCard(
                 title = "Notification Designer",
                 description = "Create and preview custom notification styles",
-                icon = androidx.compose.material.icons.default.DesignServices,
+                icon = androidx.compose.material.icons.Icons.Default.DesignServices,
                 onClick = onOpenDesigner
             )
             ActionCard(
                 title = "Per-App Styles",
                 description = "Different styles for different apps",
-                icon = androidx.compose.material.icons.default.Apps,
+                icon = androidx.compose.material.icons.Icons.Default.Apps,
                 onClick = onOpenAppStyles
             )
             ActionCard(
                 title = "Settings",
                 description = "Configure NotifyFX behavior",
-                icon = androidx.compose.material.icons.default.Settings,
+                icon = androidx.compose.material.icons.Icons.Default.Settings,
                 onClick = onOpenSettings
             )
             ActionCard(
                 title = "History",
                 description = "View past notifications",
-                icon = androidx.compose.material.icons.default.History,
+                icon = androidx.compose.material.icons.Icons.Default.History,
                 onClick = onOpenHistory
             )
         }
@@ -195,7 +195,7 @@ fun PermissionRow(
         }
         if (granted) {
             Icon(
-                imageVector = androidx.compose.material.icons.default.CheckCircle,
+                imageVector = androidx.compose.material.icons.Icons.Default.CheckCircle,
                 contentDescription = "Granted",
                 tint = MaterialTheme.colorScheme.primary
             )
@@ -246,7 +246,7 @@ fun ActionCard(
                 Text(text = description, fontSize = 14.sp, color = MaterialTheme.colorScheme.onSurfaceVariant)
             }
             Icon(
-                imageVector = androidx.compose.material.icons.default.ChevronRight,
+                imageVector = androidx.compose.material.icons.Icons.Default.ChevronRight,
                 contentDescription = null,
                 tint = MaterialTheme.colorScheme.onSurfaceVariant
             )

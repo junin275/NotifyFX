@@ -49,7 +49,7 @@ fun AppStylesScreen(viewModel: AppStylesViewModel) {
             ),
             navigationIcon = {
                 androidx.compose.material3.IconButton(onClick = { /* navigate back */ }) {
-                    androidx.compose.material.Icon(imageVector = androidx.compose.material.icons.default.ArrowBack, contentDescription = "Back")
+                    androidx.compose.material3.Icon(imageVector = androidx.compose.material.icons.Icons.Default.ArrowBack, contentDescription = "Back")
                 }
             }
         )
@@ -74,8 +74,8 @@ fun AppStylesScreen(viewModel: AppStylesViewModel) {
                         modifier = Modifier.padding(24.dp),
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
-                        androidx.compose.material.Icon(
-                            imageVector = androidx.compose.material.icons.default.Apps,
+                        androidx.compose.material3.Icon(
+                            imageVector = androidx.compose.material.icons.Icons.Default.Apps,
                             contentDescription = null,
                             modifier = Modifier.size(48.dp),
                             tint = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.5f)
@@ -155,8 +155,8 @@ fun AppStyleRow(
                         contentScale = androidx.compose.ui.layout.ContentScale.Crop
                     )
                 } else {
-                    androidx.compose.material.Icon(
-                        imageVector = androidx.compose.material.icons.default.Apps,
+                    androidx.compose.material3.Icon(
+                        imageVector = androidx.compose.material.icons.Icons.Default.Apps,
                         contentDescription = null,
                         modifier = Modifier.size(40.dp),
                         tint = MaterialTheme.colorScheme.primary
@@ -175,8 +175,8 @@ fun AppStyleRow(
                 ) {
                     Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                         Text("Style", fontSize = 14.sp)
-                        androidx.compose.material.Icon(
-                            imageVector = androidx.compose.material.icons.default.ExpandMore,
+                        androidx.compose.material3.Icon(
+                            imageVector = androidx.compose.material.icons.Icons.Default.ExpandMore,
                             contentDescription = null
                         )
                     }
@@ -198,8 +198,8 @@ fun AppStyleRow(
                                 ) {
                                     Text(text = style.name, fontSize = 14.sp)
                                     if (style.id == currentStyleId) {
-                                        androidx.compose.material.Icon(
-                                            imageVector = androidx.compose.material.icons.default.Check,
+                                        androidx.compose.material3.Icon(
+                                            imageVector = androidx.compose.material.icons.Icons.Default.Check,
                                             contentDescription = "Selected",
                                             tint = MaterialTheme.colorScheme.primary
                                         )

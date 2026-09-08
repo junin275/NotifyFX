@@ -49,7 +49,7 @@ class NotificationRepositoryImpl(
                 icon = notification.icon?.let { BitmapConverter().fromBitmap(it) },
                 largeIcon = notification.largeIcon?.let { BitmapConverter().fromBitmap(it) },
                 actions = notification.actions,
-                category = notification.category.toNotificationCategory(),
+                category = notification.category?.toNotificationCategory() ?: NotificationCategory.OTHER,
                 channelId = notification.channelId
             )
             database.historyDao().insert(entry)
