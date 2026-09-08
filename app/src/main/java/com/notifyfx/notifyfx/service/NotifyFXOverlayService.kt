@@ -19,6 +19,8 @@ import android.view.WindowManager
 import android.widget.Toast
 import androidx.core.app.NotificationCompat
 import androidx.core.app.ServiceCompat
+import androidx.compose.ui.platform.ComposeView
+import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.setViewTreeLifecycleOwner
 import androidx.lifecycle.setViewTreeViewModelStoreOwner
@@ -170,9 +172,9 @@ class NotifyFXOverlayService : AccessibilityService() {
             runSuspendCatchingLogged(TAG, "Settings collector failed") {
                 settings.settingsFlow.collect { prefs ->
                     if (destroyed) return@collect
-                    val enabled = prefs[NotifyFXSettings.SettingsKeys.ENABLED] ?: true
-                    val showOnLock = prefs[NotifyFXSettings.SettingsKeys.SHOW_ON_LOCK_SCREEN] ?: true
-                    val showInLandscape = prefs[NotifyFXSettings.SettingsKeys.SHOW_IN_LANDSCAPE] ?: true
+                    val enabled = prefs[SettingsKeys.ENABLED] ?: true
+                    val showOnLock = prefs[SettingsKeys.SHOW_ON_LOCK_SCREEN] ?: true
+                    val showInLandscape = prefs[SettingsKeys.SHOW_IN_LANDSCAPE] ?: true
                     viewModel.updateSettings(enabled, showOnLock, showInLandscape)
                 }
             }
@@ -195,7 +197,7 @@ class NotifyFXOverlayService : AccessibilityService() {
         serviceScope.launch {
             runSuspendCatchingLogged(TAG, "Service reconnect failed") {
                 val prefs = settings.snapshot()
-                val enabled = prefs[NotifyFXSettings.SettingsKeys.ENABLED] ?: true
+                val enabled = prefs[SettingsKeys.ENABLED] ?: true
                 if (enabled) {
                     startOverlaySession()
                 } else {
@@ -453,17 +455,9 @@ class NotifyFXOverlayService : AccessibilityService() {
 }
 
 fun Context.sendIntentWithOptions(pendingIntent: PendingIntent) {
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-        try {
-            pendingIntent.send(this, 0, null, null, null, 0, null)
-        } catch (e: Exception) {
-            Log.e("NotifyFX", "Failed to send intent", e)
-        }
-    } else {
-        try {
-            pendingIntent.send()
-        } catch (e: Exception) {
-            Log.e("NotifyFX", "Failed to send intent", e)
-        }
+    try {
+        pendingIntent.send()
+    } catch (e: Exception) {
+        Log.e("NotifyFX", "Failed to send intent", e)
     }
 }

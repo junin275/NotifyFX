@@ -136,7 +136,7 @@ fun RenderNotification(
                         )
                     } else {
                         Icon(
-                            imageVector = androidx.compose.material.icons.Icons.Default.Notifications,
+                            imageVector = androidx.compose.material.icons.Icons.Default.Info,
                             contentDescription = notification.appName,
                             modifier = Modifier.size(style.iconSize.dp),
                             tint = Color(style.titleColor)
@@ -174,7 +174,7 @@ fun RenderNotification(
                 // Dismiss button
                 IconButton(onClick = onDismiss) {
                     Icon(
-                        imageVector = androidx.compose.material.icons.Icons.Default.Close,
+                        imageVector = androidx.compose.material.icons.Icons.Default.Delete,
                         contentDescription = "Dismiss",
                         tint = Color(style.titleColor).copy(alpha = 0.6f)
                     )
