@@ -146,4 +146,4 @@ This project references concepts from [SmartIsland](https://github.com/agupta075
 
 ---
 
-**NotifyFX** - Your notifications, your style. 🎨
+**NotifyFX** - Your notifications, your style. 🎨# Force refresh
