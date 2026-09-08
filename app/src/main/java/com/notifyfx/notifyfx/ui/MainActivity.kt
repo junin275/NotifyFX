@@ -36,7 +36,7 @@ class MainActivity : ComponentActivity() {
     @Inject lateinit var settings: NotifyFXSettings
     @Inject lateinit var database: com.notifyfx.notifyfx.data.NotifyFXDatabase
 
-    private val viewModel: MainViewModel by hiltViewModel()
+    private val viewModel: MainViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -88,7 +88,7 @@ class DesignerActivity : ComponentActivity() {
     @Inject lateinit var settings: NotifyFXSettings
     @Inject lateinit var styleRepository: com.notifyfx.notifyfx.data.IStyleRepository
 
-    private val viewModel: DesignerViewModel by hiltViewModel()
+    private val viewModel: DesignerViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -113,7 +113,7 @@ class SettingsActivity : ComponentActivity() {
     @Inject lateinit var notificationRepository: INotificationRepository
     @Inject lateinit var styleRepository: com.notifyfx.notifyfx.data.IStyleRepository
 
-    private val viewModel: SettingsViewModel by hiltViewModel()
+    private val viewModel: SettingsViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -158,7 +158,7 @@ class SettingsActivity : ComponentActivity() {
 class HistoryActivity : ComponentActivity() {
     @Inject lateinit var historyRepository: com.notifyfx.notifyfx.data.IHistoryRepository
 
-    private val viewModel: HistoryViewModel by hiltViewModel()
+    private val viewModel: HistoryViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -174,7 +174,7 @@ class HistoryActivity : ComponentActivity() {
 class AppStylesActivity : ComponentActivity() {
     @Inject lateinit var styleRepository: com.notifyfx.notifyfx.data.IStyleRepository
 
-    private val viewModel: AppStylesViewModel by hiltViewModel()
+    private val viewModel: AppStylesViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
